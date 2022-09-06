@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MVC_BikeStores.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (User.IsInRole("Administrators"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <p>
+
+        @using (@Html.BeginForm())
+        {
+        <p>
+            Stato: @Html.DropDownList("cercaStato", null, "")
+            <br />
+            <br />
+            <input type="submit" value="Cerca" />
+        </p>
+    }
+        </p>
+}
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customer.First_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order_Status.Status_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Staff.First_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Store.Store_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Required_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Shipped_Date)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.First_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Order_Status.Status_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Staff.First_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Store.Store_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Order_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Required_Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shipped_Date)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Administrators") || User.IsInRole("Employees"))
+                        {
+                            @Html.ActionLink("Edit ", "Edit", new { id = item.Order_Id })
+                            @Html.ActionLink("Delete ", "Delete", new { id = item.Order_Id })
+                        }
+                        @Html.ActionLink("Details", "Details", new { id = item.Order_Id })
+                    </td>
+                </tr>
+            }
+
+        </table>

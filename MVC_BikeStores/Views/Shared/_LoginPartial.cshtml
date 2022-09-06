@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        @Html.ActionLink("Salve " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+    </li>
+    @if (User.IsInRole("Administrators"))
+    {
+        <li>
+            @Html.ActionLink("DashBoard", "Administrators", "DashBoard", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+    }
+    else if (User.IsInRole("Employees"))
+    {
+        <li>
+            @Html.ActionLink("DashBoard", "Employees", "DashBoard", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+    }
+    else if (User.IsInRole("Customers"))
+    {
+        <li>
+            @Html.ActionLink("DashBoard", "Customers", "DashBoard", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+    }
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Disconnetti</a></li>
+</ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Registrazione", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Accedi", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

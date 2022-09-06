@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h2>DashBoard Customers</h2>
+
+<h5>Profilo</h5>
+@Html.ActionLink("Profilo", "Profile", "Customers", new { email = User.Identity.Name }, null)
+<h5>Ordini</h5>
+@Html.ActionLink("Lista Ordini", "IndexCustomers", "Orders", new { email = User.Identity.Name }, null)
+
